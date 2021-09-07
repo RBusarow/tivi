@@ -16,6 +16,6 @@
 
 package app.tivi.home.popular
 
-internal sealed class PopularAction {
+sealed class PopularAction {
     data class OpenShowDetails(val showId: Long) : PopularAction()
 }

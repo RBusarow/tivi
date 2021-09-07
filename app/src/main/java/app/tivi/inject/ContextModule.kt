@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package app.tivi.appinitializers
+package app.tivi.inject
 
 import android.app.Application
-import app.tivi.inject.AppScope
-import app.tivi.settings.TiviPreferences
-import com.squareup.anvil.annotations.ContributesMultibinding
-import javax.inject.Inject
+import android.content.Context
+import com.squareup.anvil.annotations.ContributesTo
+import dagger.Binds
+import dagger.Module
 
-@ContributesMultibinding(AppScope::class)
-class PreferencesInitializer @Inject constructor(
-    private val prefs: TiviPreferences,
-) : AppInitializer {
-    override fun init(application: Application) {
-        prefs.setup()
-    }
+@Module
+@ContributesTo(AppScope::class)
+interface ContextModule {
+
+    @get:ApplicationContext
+    @get:Binds
+    val Application.appContext: Context
 }

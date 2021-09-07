@@ -18,21 +18,24 @@ package app.tivi.trakt
 
 import android.content.Context
 import android.content.Intent
+import app.tivi.inject.AppScope
+import app.tivi.inject.ApplicationContext
 import app.tivi.util.Logger
+import com.squareup.anvil.annotations.ContributesBinding
 import dagger.Lazy
-import dagger.hilt.android.qualifiers.ApplicationContext
 import net.openid.appauth.AuthState
 import net.openid.appauth.AuthorizationRequest
 import net.openid.appauth.AuthorizationService
 import net.openid.appauth.ClientAuthentication
 import javax.inject.Inject
 
-internal class ActivityTraktAuthManager @Inject constructor(
+@ContributesBinding(AppScope::class)
+class ActivityTraktAuthManager @Inject constructor(
     @ApplicationContext private val context: Context,
     private val traktManager: TraktManager,
     private val requestProvider: Lazy<AuthorizationRequest>,
     private val clientAuth: Lazy<ClientAuthentication>,
-    private val logger: Logger
+    private val logger: Logger,
 ) : TraktAuthManager {
     private val authService by lazy(LazyThreadSafetyMode.NONE) {
         AuthorizationService(context)

@@ -16,7 +16,7 @@
 
 package app.tivi.home.discover
 
-internal sealed class DiscoverAction {
+sealed class DiscoverAction {
     object RefreshAction : DiscoverAction()
     object LoginAction : DiscoverAction()
     object OpenUserDetails : DiscoverAction()

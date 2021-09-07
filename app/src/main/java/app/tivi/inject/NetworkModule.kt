@@ -18,11 +18,9 @@ package app.tivi.inject
 
 import android.content.Context
 import app.tivi.BuildConfig
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.ConnectionPool
 import okhttp3.Dispatcher
@@ -33,7 +31,7 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
 object NetworkModule {
     @Singleton
@@ -63,7 +61,7 @@ object NetworkModule {
     fun provideOkHttpClient(
         httpLoggingInterceptor: HttpLoggingInterceptor?,
         loggingEventListener: LoggingEventListener.Factory?,
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .apply {

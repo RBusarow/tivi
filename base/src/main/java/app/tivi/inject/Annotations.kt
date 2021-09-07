@@ -52,3 +52,13 @@ annotation class ShortTime
 @Qualifier
 @MustBeDocumented
 annotation class ApplicationId
+
+@Retention(AnnotationRetention.RUNTIME)
+@Qualifier
+@MustBeDocumented
+annotation class ApplicationContext
+
+@Retention(AnnotationRetention.RUNTIME)
+@Qualifier
+@MustBeDocumented
+annotation class ActivityContext

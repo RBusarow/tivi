@@ -18,7 +18,7 @@ package app.tivi.showdetails.details
 
 import app.tivi.data.entities.ActionDate
 
-internal sealed class ShowDetailsAction {
+sealed class ShowDetailsAction {
     object RefreshAction : ShowDetailsAction()
     object FollowShowToggleAction : ShowDetailsAction()
 

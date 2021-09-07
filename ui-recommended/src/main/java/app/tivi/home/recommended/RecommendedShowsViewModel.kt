@@ -23,12 +23,10 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import app.tivi.data.resultentities.RecommendedEntryWithShow
 import app.tivi.domain.observers.ObservePagedRecommendedShows
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
+import tangle.viewmodel.VMInject
 
-@HiltViewModel
-internal class RecommendedShowsViewModel @Inject constructor(
+class RecommendedShowsViewModel @VMInject constructor(
     pagingInteractor: ObservePagedRecommendedShows,
 ) : ViewModel() {
     val pagedList: Flow<PagingData<RecommendedEntryWithShow>> =

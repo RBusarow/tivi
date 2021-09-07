@@ -18,13 +18,10 @@ apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-kapt'
-kapt {
-    correctErrorTypes = true
-    useBuildCache = true
+apply plugin: 'com.squareup.anvil'
+anvil {
+  generateDaggerFactories true
 }
-
-apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion buildConfig.compileSdk
@@ -71,7 +68,10 @@ dependencies {
     implementation libs.accompanist.insets
     implementation libs.accompanist.swiperefresh
 
-    implementation libs.androidx.hilt.compose
-    implementation libs.hilt.library
-    kapt libs.hilt.compiler
+    implementation libs.tangle.viewmodel.compose
+implementation libs.tangle.viewmodel.api
+anvil libs.tangle.viewmodel.compiler
+anvil libs.tangle.compiler
+
+
 }

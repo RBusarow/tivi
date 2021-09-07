@@ -23,17 +23,15 @@ import app.tivi.domain.observers.ObserveTraktAuthState
 import app.tivi.domain.observers.ObserveUserDetails
 import app.tivi.trakt.TraktAuthState
 import app.tivi.util.Logger
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import tangle.viewmodel.VMInject
 
-@HiltViewModel
-class MainActivityViewModel @Inject constructor(
+class MainActivityViewModel @VMInject constructor(
     observeTraktAuthState: ObserveTraktAuthState,
     private val updateUserDetails: UpdateUserDetails,
     observeUserDetails: ObserveUserDetails,
-    private val logger: Logger
+    private val logger: Logger,
 ) : ViewModel() {
     init {
         viewModelScope.launch {

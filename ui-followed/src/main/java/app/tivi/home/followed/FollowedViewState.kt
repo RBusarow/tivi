@@ -20,7 +20,7 @@ import app.tivi.data.entities.SortOption
 import app.tivi.data.entities.TraktUser
 import app.tivi.trakt.TraktAuthState
 
-internal data class FollowedViewState(
+data class FollowedViewState(
     val user: TraktUser? = null,
     val authState: TraktAuthState = TraktAuthState.LOGGED_OUT,
     val isLoading: Boolean = false,

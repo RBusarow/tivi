@@ -83,7 +83,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import app.tivi.common.compose.LocalTiviDateFormatter
 import app.tivi.common.compose.rememberFlowWithLifecycle
 import app.tivi.common.compose.ui.AutoSizedCircularProgressIndicator
@@ -102,6 +101,7 @@ import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import org.threeten.bp.OffsetDateTime
+import tangle.viewmodel.compose.tangleViewModel
 import kotlin.math.absoluteValue
 import kotlin.math.hypot
 
@@ -110,7 +110,7 @@ fun EpisodeDetails(
     navigateUp: () -> Unit,
 ) {
     EpisodeDetails(
-        viewModel = hiltViewModel(),
+        viewModel = tangleViewModel(),
         navigateUp = navigateUp,
     )
 }

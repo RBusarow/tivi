@@ -16,6 +16,8 @@
 
 package app.tivi.tmdb
 
+import app.tivi.inject.AppScope
+import com.squareup.anvil.annotations.ContributesTo
 import com.uwetrottmann.tmdb2.Tmdb
 import dagger.Module
 import dagger.Provides
@@ -25,6 +27,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
+@ContributesTo(AppScope::class)
 object TmdbModule {
     @Provides
     fun provideTmdbImageUrlProvider(tmdbManager: TmdbManager): TmdbImageUrlProvider {

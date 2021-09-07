@@ -17,13 +17,12 @@
 
 plugins {
     id 'kotlin'
-    id 'kotlin-kapt'
     id 'com.android.lint'
+    id 'com.squareup.anvil'
 }
 
-kapt {
-    correctErrorTypes = true
-    useBuildCache = true
+anvil {
+    generateDaggerFactories true
 }
 
 dependencies {
@@ -36,5 +35,4 @@ dependencies {
 
     implementation libs.okhttp.okhttp
 
-    kapt libs.dagger.compiler
 }

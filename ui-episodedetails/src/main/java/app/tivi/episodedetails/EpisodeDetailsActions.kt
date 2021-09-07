@@ -16,7 +16,7 @@
 
 package app.tivi.episodedetails
 
-internal sealed class EpisodeDetailsAction {
+sealed class EpisodeDetailsAction {
     object RefreshAction : EpisodeDetailsAction()
     object Close : EpisodeDetailsAction()
     object AddEpisodeWatchAction : EpisodeDetailsAction()

@@ -19,9 +19,12 @@ package app.tivi.tasks
 import android.app.Application
 import app.tivi.actions.ShowTasks
 import app.tivi.appinitializers.AppInitializer
+import app.tivi.inject.AppScope
+import com.squareup.anvil.annotations.ContributesMultibinding
 import dagger.Lazy
 import javax.inject.Inject
 
+@ContributesMultibinding(AppScope::class)
 class ShowTasksInitializer @Inject constructor(
     private val showTasks: Lazy<ShowTasks>
 ) : AppInitializer {

@@ -16,7 +16,16 @@
 
 package app.tivi.trakt
 
+import app.tivi.inject.AppScope
+import com.squareup.anvil.annotations.ContributesTo
 import com.uwetrottmann.trakt5.TraktV2
+import com.uwetrottmann.trakt5.services.Episodes
+import com.uwetrottmann.trakt5.services.Recommendations
+import com.uwetrottmann.trakt5.services.Search
+import com.uwetrottmann.trakt5.services.Seasons
+import com.uwetrottmann.trakt5.services.Shows
+import com.uwetrottmann.trakt5.services.Sync
+import com.uwetrottmann.trakt5.services.Users
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -24,7 +33,8 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
-@Module(includes = [TraktServiceModule::class])
+@ContributesTo(AppScope::class)
+@Module
 object TraktModule {
     @Provides
     @Singleton
@@ -45,26 +55,27 @@ object TraktModule {
     }
 }
 
+@ContributesTo(AppScope::class)
 @Module
 object TraktServiceModule {
     @Provides
-    fun provideTraktUsersService(traktV2: TraktV2) = traktV2.users()
+    fun provideTraktUsersService(traktV2: TraktV2): Users = traktV2.users()
 
     @Provides
-    fun provideTraktShowsService(traktV2: TraktV2) = traktV2.shows()
+    fun provideTraktShowsService(traktV2: TraktV2): Shows = traktV2.shows()
 
     @Provides
-    fun provideTraktEpisodesService(traktV2: TraktV2) = traktV2.episodes()
+    fun provideTraktEpisodesService(traktV2: TraktV2): Episodes = traktV2.episodes()
 
     @Provides
-    fun provideTraktSeasonsService(traktV2: TraktV2) = traktV2.seasons()
+    fun provideTraktSeasonsService(traktV2: TraktV2): Seasons = traktV2.seasons()
 
     @Provides
-    fun provideTraktSyncService(traktV2: TraktV2) = traktV2.sync()
+    fun provideTraktSyncService(traktV2: TraktV2): Sync = traktV2.sync()
 
     @Provides
-    fun provideTraktSearchService(traktV2: TraktV2) = traktV2.search()
+    fun provideTraktSearchService(traktV2: TraktV2): Search = traktV2.search()
 
     @Provides
-    fun provideTraktRecommendationsService(traktV2: TraktV2) = traktV2.recommendations()
+    fun provideTraktRecommendationsService(traktV2: TraktV2): Recommendations = traktV2.recommendations()
 }

@@ -19,13 +19,10 @@ apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-kapt'
-kapt {
-    correctErrorTypes = true
-    useBuildCache = true
+apply plugin: 'com.squareup.anvil'
+anvil {
+  generateDaggerFactories true
 }
-
-apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion buildConfig.compileSdk
@@ -46,10 +43,11 @@ dependencies {
     implementation project(':common-ui-resources')
     implementation project(':common-ui-view')
 
+    implementation libs.androidx.activity.core
     implementation libs.androidx.browser
     implementation libs.androidx.core
     implementation libs.androidx.lifecycle.runtime
 
-    implementation libs.hilt.library
-    kapt libs.hilt.compiler
+    implementation libs.tangle.api
+    anvil libs.tangle.compiler
 }

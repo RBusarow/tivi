@@ -20,9 +20,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import app.tivi.common.compose.EntryGrid
+import tangle.viewmodel.compose.tangleViewModel
 
 @Composable
 fun Recommended(
@@ -30,7 +30,7 @@ fun Recommended(
     navigateUp: () -> Unit,
 ) {
     Recommended(
-        viewModel = hiltViewModel(),
+        viewModel = tangleViewModel(),
         openShowDetails = openShowDetails,
         navigateUp = navigateUp,
     )

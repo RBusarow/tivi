@@ -47,7 +47,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import app.tivi.common.compose.Layout
 import app.tivi.common.compose.bodyWidth
 import app.tivi.common.compose.itemsInGrid
@@ -59,13 +58,14 @@ import app.tivi.data.entities.TiviShow
 import app.tivi.data.resultentities.ShowDetailed
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.insets.ui.Scaffold
+import tangle.viewmodel.compose.tangleViewModel
 
 @Composable
 fun Search(
     openShowDetails: (showId: Long) -> Unit,
 ) {
     Search(
-        viewModel = hiltViewModel(),
+        viewModel = tangleViewModel(),
         openShowDetails = openShowDetails,
     )
 }

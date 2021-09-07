@@ -50,7 +50,6 @@ import androidx.compose.ui.layout.FirstBaseline
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import app.tivi.common.compose.Layout
 import app.tivi.common.compose.LocalTiviTextCreator
 import app.tivi.common.compose.bodyWidth
@@ -75,6 +74,7 @@ import com.google.accompanist.insets.ui.TopAppBar
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import tangle.viewmodel.compose.tangleViewModel
 
 @Composable
 fun Discover(
@@ -85,7 +85,7 @@ fun Discover(
     openUser: () -> Unit,
 ) {
     Discover(
-        viewModel = hiltViewModel(),
+        viewModel = tangleViewModel(),
         openTrendingShows = openTrendingShows,
         openPopularShows = openPopularShows,
         openRecommendedShows = openRecommendedShows,

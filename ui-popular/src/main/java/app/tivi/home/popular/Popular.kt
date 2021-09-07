@@ -18,10 +18,10 @@ package app.tivi.home.popular
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import app.tivi.common.compose.EntryGrid
 import app.tivi.common.compose.rememberFlowWithLifecycle
+import tangle.viewmodel.compose.tangleViewModel
 
 @Composable
 fun Popular(
@@ -29,7 +29,7 @@ fun Popular(
     navigateUp: () -> Unit,
 ) {
     Popular(
-        viewModel = hiltViewModel(),
+        viewModel = tangleViewModel(),
         openShowDetails = openShowDetails,
         navigateUp = navigateUp,
     )

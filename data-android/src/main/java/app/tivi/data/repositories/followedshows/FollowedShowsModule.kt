@@ -16,13 +16,13 @@
 
 package app.tivi.data.repositories.followedshows
 
+import app.tivi.inject.AppScope
 import app.tivi.inject.Trakt
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Binds
 import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
 abstract class FollowedShowsModule {
     @Binds

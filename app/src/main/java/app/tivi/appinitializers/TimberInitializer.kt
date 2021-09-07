@@ -18,9 +18,12 @@ package app.tivi.appinitializers
 
 import android.app.Application
 import app.tivi.BuildConfig
+import app.tivi.inject.AppScope
 import app.tivi.util.TiviLogger
+import com.squareup.anvil.annotations.ContributesMultibinding
 import javax.inject.Inject
 
+@ContributesMultibinding(AppScope::class)
 class TimberInitializer @Inject constructor(
     private val tiviLogger: TiviLogger
 ) : AppInitializer {

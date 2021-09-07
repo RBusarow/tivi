@@ -27,15 +27,16 @@ import app.tivi.common.compose.LocalTiviDateFormatter
 import app.tivi.common.compose.LocalTiviTextCreator
 import app.tivi.common.compose.shouldUseDarkColors
 import app.tivi.common.compose.theme.TiviTheme
+import app.tivi.inject.AppScope
 import app.tivi.settings.SettingsActivity
 import app.tivi.settings.TiviPreferences
 import app.tivi.util.TiviDateFormatter
 import app.tivi.util.TiviTextCreator
 import com.google.accompanist.insets.ProvideWindowInsets
-import dagger.hilt.android.AndroidEntryPoint
+import tangle.inject.TangleScope
 import javax.inject.Inject
 
-@AndroidEntryPoint
+@TangleScope(AppScope::class)
 class MainActivity : TiviActivity() {
     private lateinit var viewModel: MainActivityViewModel
 

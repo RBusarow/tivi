@@ -23,11 +23,14 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import app.tivi.actions.ShowTasks
+import app.tivi.inject.AppScope
+import com.squareup.anvil.annotations.ContributesBinding
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+@ContributesBinding(AppScope::class)
 class ShowTasksImpl @Inject constructor(
-    private val workManager: WorkManager
+    private val workManager: WorkManager,
 ) : ShowTasks {
     override fun syncShowWatchedEpisodes(showId: Long) {
         val request = OneTimeWorkRequest.Builder(SyncShowWatchedProgress::class.java)

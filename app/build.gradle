@@ -17,10 +17,11 @@
 
 plugins {
     id 'com.android.application'
-    id 'dagger.hilt.android.plugin'
 
     id 'kotlin-android'
     id 'kotlin-kapt'
+
+    id 'com.squareup.anvil'
 }
 
 kapt {
@@ -192,12 +193,16 @@ dependencies {
     implementation libs.kotlin.coroutines.core
     implementation libs.kotlin.coroutines.android
 
-    implementation libs.hilt.library
-    implementation libs.androidx.hilt.compose
-    kapt libs.hilt.compiler
+    implementation libs.tangle.viewmodel.compose
+    implementation libs.tangle.work.api
+    implementation libs.tangle.viewmodel.api
 
-    implementation libs.androidx.hilt.work
-    kapt libs.androidx.hilt.compiler
+    anvil libs.tangle.compiler
+    anvil libs.tangle.work.compiler
+    anvil libs.tangle.viewmodel.compiler
+    anvil libs.tangle.compiler
+
+    kapt libs.dagger.compiler
 
     implementation libs.google.crashlytics
     implementation libs.google.analytics

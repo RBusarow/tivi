@@ -28,8 +28,9 @@ import app.tivi.data.entities.Genre
 import app.tivi.data.entities.Season
 import app.tivi.data.entities.ShowStatus
 import app.tivi.data.entities.TiviShow
+import app.tivi.inject.ActivityContext
+import app.tivi.inject.ApplicationContext
 import app.tivi.ui.GenreStringer
-import dagger.hilt.android.qualifiers.ActivityContext
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZonedDateTime
@@ -38,11 +39,12 @@ import java.util.Locale
 import javax.inject.Inject
 
 class TiviTextCreator @Inject constructor(
-    @ActivityContext private val context: Context,
+    // TODO this is kludge.  The Hilt version uses ActivityContext.
+    @ApplicationContext private val context: Context,
     private val tiviDateFormatter: TiviDateFormatter,
 ) {
     fun showTitle(
-        show: TiviShow
+        show: TiviShow,
     ): CharSequence = StringBuilder()
         .append(show.title)
         .apply {
@@ -61,7 +63,7 @@ class TiviTextCreator @Inject constructor(
 
     fun followedShowEpisodeWatchStatus(
         episodeCount: Int,
-        watchedEpisodeCount: Int
+        watchedEpisodeCount: Int,
     ): CharSequence = when {
         watchedEpisodeCount < episodeCount -> {
             context.getString(
@@ -82,7 +84,7 @@ class TiviTextCreator @Inject constructor(
     }
 
     fun seasonTitle(
-        season: Season
+        season: Season,
     ): String = when {
         season.title != null -> season.title!!
         season.number != null -> {
@@ -95,7 +97,7 @@ class TiviTextCreator @Inject constructor(
         watched: Int,
         toWatch: Int,
         toAir: Int,
-        nextToAirDate: OffsetDateTime? = null
+        nextToAirDate: OffsetDateTime? = null,
     ): CharSequence {
         val text = StringBuilder()
         if (watched > 0) {

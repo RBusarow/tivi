@@ -16,6 +16,6 @@
 
 package app.tivi.home.recommended
 
-internal sealed class RecommendedAction {
+sealed class RecommendedAction {
     data class OpenShowDetails(val showId: Long) : RecommendedAction()
 }

@@ -19,11 +19,11 @@ package app.tivi.common.imageloading
 import android.app.Application
 import android.content.Context
 import app.tivi.appinitializers.AppInitializer
+import app.tivi.inject.ApplicationContext
 import coil.Coil
 import coil.ImageLoader
 import coil.annotation.ExperimentalCoilApi
 import coil.util.CoilUtils
-import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
 import javax.inject.Inject
 

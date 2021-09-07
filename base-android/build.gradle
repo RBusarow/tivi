@@ -19,10 +19,9 @@ apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-kapt'
-kapt {
-    correctErrorTypes = true
-    useBuildCache = true
+apply plugin: 'com.squareup.anvil'
+anvil {
+  generateDaggerFactories true
 }
 
 android {
@@ -49,6 +48,4 @@ dependencies {
     implementation libs.timber
     implementation libs.threeTenAbp
 
-    implementation libs.hilt.library
-    kapt libs.hilt.compiler
 }

@@ -17,7 +17,6 @@
 package app.tivi.tasks
 
 import android.content.Context
-import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import app.tivi.data.entities.RefreshType
@@ -25,13 +24,14 @@ import app.tivi.domain.interactors.UpdateFollowedShows
 import app.tivi.util.Logger
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import tangle.work.TangleWorker
 
-@HiltWorker
+@TangleWorker
 class SyncAllFollowedShows @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
     private val updateFollowedShows: UpdateFollowedShows,
-    private val logger: Logger
+    private val logger: Logger,
 ) : CoroutineWorker(context, params) {
     companion object {
         const val TAG = "sync-all-followed-shows"

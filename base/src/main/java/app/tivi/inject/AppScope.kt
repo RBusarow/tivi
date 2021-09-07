@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,6 @@
  * limitations under the License.
  */
 
-package app.tivi.trakt
+package app.tivi.inject
 
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-
-@InstallIn(SingletonComponent::class)
-@Module
-internal abstract class TraktAuthManagerModule {
-    @Binds
-    abstract fun provideTraktAuthManager(manager: ActivityTraktAuthManager): TraktAuthManager
-}
+abstract class AppScope private constructor()

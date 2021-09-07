@@ -16,7 +16,7 @@
 
 package app.tivi.account
 
-internal sealed class AccountUiAction {
+sealed class AccountUiAction {
     object Login : AccountUiAction()
     object Logout : AccountUiAction()
     object Close : AccountUiAction()

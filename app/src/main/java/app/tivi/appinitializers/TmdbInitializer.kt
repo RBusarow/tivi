@@ -18,12 +18,15 @@ package app.tivi.appinitializers
 
 import android.app.Application
 import app.tivi.domain.interactors.UpdateTmdbConfig
+import app.tivi.inject.AppScope
 import app.tivi.util.AppCoroutineDispatchers
+import com.squareup.anvil.annotations.ContributesMultibinding
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@ContributesMultibinding(AppScope::class)
 class TmdbInitializer @Inject constructor(
     private val updateTmdbConfig: UpdateTmdbConfig,
     private val dispatchers: AppCoroutineDispatchers

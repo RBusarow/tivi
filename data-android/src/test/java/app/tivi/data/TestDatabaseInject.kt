@@ -23,6 +23,8 @@ import app.tivi.data.repositories.episodes.SeasonsEpisodesDataSource
 import app.tivi.data.repositories.followedshows.TraktFollowedShowsDataSource
 import app.tivi.data.repositories.showimages.ShowImagesDataSource
 import app.tivi.data.repositories.shows.ShowDataSource
+import app.tivi.inject.AppScope
+import app.tivi.inject.ApplicationContext
 import app.tivi.inject.Trakt
 import app.tivi.trakt.TraktAuthState
 import app.tivi.util.Logger
@@ -30,17 +32,15 @@ import app.tivi.utils.SuccessFakeShowDataSource
 import app.tivi.utils.SuccessFakeShowImagesDataSource
 import app.tivi.utils.TestTransactionRunner
 import app.tivi.utils.TiviTestDatabase
+import com.squareup.anvil.annotations.ContributesTo
 import com.uwetrottmann.tmdb2.Tmdb
 import com.uwetrottmann.trakt5.TraktV2
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import io.mockk.mockk
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
 class TestDataSourceModule {
     private val traktFollowedShowsDataSource: TraktFollowedShowsDataSource = mockk()
@@ -52,18 +52,18 @@ class TestDataSourceModule {
     private val tmdbShowImagesDataSource: ShowImagesDataSource = SuccessFakeShowImagesDataSource
 
     @Provides
-    fun provideTraktFollowedShowsDataSource() = traktFollowedShowsDataSource
+    fun provideTraktFollowedShowsDataSource(): TraktFollowedShowsDataSource = traktFollowedShowsDataSource
 
     @Provides
     @Trakt
-    fun provideTraktEpisodeDataSource() = traktEpisodeDataSource
+    fun provideTraktEpisodeDataSource(): EpisodeDataSource = traktEpisodeDataSource
 
     @Provides
     @app.tivi.inject.Tmdb
-    fun provideTmdbEpisodeDataSource() = tmdbEpisodeDataSource
+    fun provideTmdbEpisodeDataSource(): EpisodeDataSource = tmdbEpisodeDataSource
 
     @Provides
-    fun provideSeasonsEpisodesDataSource() = seasonsDataSource
+    fun provideSeasonsEpisodesDataSource(): SeasonsEpisodesDataSource = seasonsDataSource
 
     @Provides
     @Trakt
@@ -78,7 +78,7 @@ class TestDataSourceModule {
     fun provideTmdbShowImagesDataSource(): ShowImagesDataSource = tmdbShowImagesDataSource
 }
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
 object TestDatabaseModule {
     @Provides
@@ -88,14 +88,14 @@ object TestDatabaseModule {
     fun provideTmdb(): Tmdb = Tmdb("fakefakefake")
 
     @Provides
-    fun provideTraktAuthState() = TraktAuthState.LOGGED_IN
+    fun provideTraktAuthState(): TraktAuthState = TraktAuthState.LOGGED_IN
 
     @Singleton
     @Provides
     fun provideLogger(): Logger = mockk(relaxUnitFun = true)
 }
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
 object TestRoomDatabaseModule {
     @Singleton

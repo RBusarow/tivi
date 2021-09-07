@@ -52,7 +52,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import app.tivi.common.compose.rememberFlowWithLifecycle
 import app.tivi.common.compose.theme.foregroundColor
@@ -63,6 +62,7 @@ import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneOffset
+import tangle.viewmodel.compose.tangleViewModel
 
 @Composable
 fun AccountUi(
@@ -71,7 +71,7 @@ fun AccountUi(
 ) {
     AccountUi(
         navController = navController,
-        viewModel = hiltViewModel(),
+        viewModel = tangleViewModel(),
         onOpenSettings = onOpenSettings,
     )
 }

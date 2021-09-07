@@ -19,21 +19,21 @@ package app.tivi.data.repositories.shows
 import app.tivi.data.daos.TiviShowDao
 import app.tivi.data.entities.Success
 import app.tivi.data.entities.TiviShow
+import app.tivi.inject.AppScope
 import com.dropbox.android.external.store4.Fetcher
 import com.dropbox.android.external.store4.SourceOfTruth
 import com.dropbox.android.external.store4.Store
 import com.dropbox.android.external.store4.StoreBuilder
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.map
 import org.threeten.bp.Duration
 import javax.inject.Singleton
 
-typealias ShowStore = Store<Long, TiviShow>
+typealias ShowStore = @JvmSuppressWildcards Store<Long, TiviShow>
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
 object ShowStoreModule {
     @Provides
@@ -41,7 +41,7 @@ object ShowStoreModule {
     fun provideShowStore(
         showDao: TiviShowDao,
         lastRequestStore: ShowLastRequestStore,
-        traktShowDataSource: TraktShowDataSource
+        traktShowDataSource: TraktShowDataSource,
     ): ShowStore = StoreBuilder.from(
         fetcher = Fetcher.of { id: Long ->
             traktShowDataSource.getShow(showDao.getShowWithIdOrThrow(id))

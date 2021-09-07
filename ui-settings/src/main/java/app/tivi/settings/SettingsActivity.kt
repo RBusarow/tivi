@@ -21,16 +21,19 @@ package app.tivi.settings
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.lifecycle.lifecycleScope
+import app.tivi.inject.AppScope
 import app.tivi.util.PowerController
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import tangle.inject.TangleGraph
+import tangle.inject.TangleScope
 import javax.inject.Inject
 
-@AndroidEntryPoint
+@TangleScope(AppScope::class)
 class SettingsActivity : ComponentActivity() {
     @Inject lateinit var powerController: PowerController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        TangleGraph.inject(this)
         super.onCreate(savedInstanceState)
 
         val fragment = SettingsPreferenceFragment()

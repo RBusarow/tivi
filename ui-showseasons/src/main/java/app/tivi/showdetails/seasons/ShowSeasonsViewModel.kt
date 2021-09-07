@@ -16,7 +16,6 @@
 
 package app.tivi.showdetails.seasons
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.tivi.api.UiError
@@ -33,7 +32,6 @@ import app.tivi.domain.observers.ObserveShowSeasonsEpisodesWatches
 import app.tivi.ui.SnackbarManager
 import app.tivi.util.Logger
 import app.tivi.util.ObservableLoadingCounter
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -41,19 +39,17 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import tangle.inject.TangleParam
+import tangle.viewmodel.VMInject
 
-@HiltViewModel
-internal class ShowSeasonsViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+class ShowSeasonsViewModel @VMInject constructor(
     observeShowDetails: ObserveShowDetails,
     observeShowSeasons: ObserveShowSeasonsEpisodesWatches,
     private val changeSeasonWatchedStatus: ChangeSeasonWatchedStatus,
     private val logger: Logger,
-    private val snackbarManager: SnackbarManager
+    private val snackbarManager: SnackbarManager,
+    @TangleParam("showId") private val showId: Long,
 ) : ViewModel() {
-    private val showId: Long = savedStateHandle.get("showId")!!
-
     private val loadingState = ObservableLoadingCounter()
 
     val state: StateFlow<ShowSeasonsViewState> = combine(

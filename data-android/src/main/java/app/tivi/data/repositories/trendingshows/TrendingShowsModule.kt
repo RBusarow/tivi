@@ -20,21 +20,21 @@ import app.tivi.data.daos.TiviShowDao
 import app.tivi.data.daos.TrendingDao
 import app.tivi.data.entities.Success
 import app.tivi.data.entities.TrendingShowEntry
+import app.tivi.inject.AppScope
 import com.dropbox.android.external.store4.Fetcher
 import com.dropbox.android.external.store4.SourceOfTruth
 import com.dropbox.android.external.store4.Store
 import com.dropbox.android.external.store4.StoreBuilder
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.map
 import org.threeten.bp.Duration
 import javax.inject.Singleton
 
-typealias TrendingShowsStore = Store<Int, List<TrendingShowEntry>>
+typealias TrendingShowsStore = @JvmSuppressWildcards Store<Int, List<TrendingShowEntry>>
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
 object TrendingShowsModule {
     @Provides
@@ -43,7 +43,7 @@ object TrendingShowsModule {
         traktTrendingShows: TraktTrendingShowsDataSource,
         trendingShowsDao: TrendingDao,
         showDao: TiviShowDao,
-        lastRequestStore: TrendingShowsLastRequestStore
+        lastRequestStore: TrendingShowsLastRequestStore,
     ): TrendingShowsStore = StoreBuilder.from(
         fetcher = Fetcher.of { page: Int ->
             traktTrendingShows(page, 20)

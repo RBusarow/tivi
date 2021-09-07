@@ -17,14 +17,17 @@
 package app.tivi.appinitializers
 
 import android.app.Application
+import app.tivi.inject.AppScope
 import app.tivi.util.AppCoroutineDispatchers
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.squareup.anvil.annotations.ContributesMultibinding
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.threeten.bp.zone.ZoneRulesProvider
 import javax.inject.Inject
 
+@ContributesMultibinding(AppScope::class)
 class ThreeTenBpInitializer @Inject constructor(
     private val dispatchers: AppCoroutineDispatchers
 ) : AppInitializer {

@@ -16,7 +16,6 @@
 
 package app.tivi.showdetails.details
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.tivi.api.UiError
@@ -45,7 +44,6 @@ import app.tivi.extensions.combine
 import app.tivi.ui.SnackbarManager
 import app.tivi.util.Logger
 import app.tivi.util.ObservableLoadingCounter
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,11 +51,11 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import tangle.inject.TangleParam
+import tangle.viewmodel.VMInject
 import javax.inject.Inject
 
-@HiltViewModel
-internal class ShowDetailsViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+class ShowDetailsViewModel @VMInject constructor(
     private val updateShowDetails: UpdateShowDetails,
     observeShowDetails: ObserveShowDetails,
     observeShowImages: ObserveShowImages,
@@ -73,9 +71,9 @@ internal class ShowDetailsViewModel @Inject constructor(
     private val changeShowFollowStatus: ChangeShowFollowStatus,
     private val changeSeasonFollowStatus: ChangeSeasonFollowStatus,
     private val logger: Logger,
-    private val snackbarManager: SnackbarManager
+    private val snackbarManager: SnackbarManager,
+    @TangleParam("showId") private val showId: Long
 ) : ViewModel() {
-    private val showId: Long = savedStateHandle.get("showId")!!
 
     private val loadingState = ObservableLoadingCounter()
 
@@ -94,8 +92,10 @@ internal class ShowDetailsViewModel @Inject constructor(
         observeShowViewStats.flow,
         snackbarManager.errors,
         expandedSeasonId,
-    ) { isFollowed, show, showImages, refreshing, relatedShows, nextEpisode, seasons,
-        stats, error, expandedSeasonId ->
+    ) {
+        isFollowed, show, showImages, refreshing, relatedShows, nextEpisode, seasons,
+        stats, error, expandedSeasonId,
+        ->
         ShowDetailsViewState(
             isFollowed = isFollowed,
             show = show,

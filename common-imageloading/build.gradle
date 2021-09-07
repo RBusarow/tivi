@@ -19,10 +19,9 @@ apply plugin: 'com.android.library'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-kapt'
-kapt {
-    correctErrorTypes = true
-    useBuildCache = true
+apply plugin: 'com.squareup.anvil'
+anvil {
+  generateDaggerFactories true
 }
 
 android {
@@ -47,8 +46,13 @@ dependencies {
 
     implementation libs.androidx.core
 
-    implementation libs.hilt.library
-    kapt libs.hilt.compiler
-
     api libs.coil.coil
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+
+        // Coil's Interceptors are experimental
+        freeCompilerArgs += "-Xopt-in=coil.annotation.ExperimentalCoilApi"
+    }
 }

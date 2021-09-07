@@ -49,7 +49,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import app.tivi.common.compose.Layout
@@ -79,6 +78,7 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import org.threeten.bp.OffsetDateTime
+import tangle.viewmodel.compose.tangleViewModel
 
 @Composable
 fun Watched(
@@ -86,7 +86,7 @@ fun Watched(
     openUser: () -> Unit,
 ) {
     Watched(
-        viewModel = hiltViewModel(),
+        viewModel = tangleViewModel(),
         openShowDetails = openShowDetails,
         openUser = openUser,
     )

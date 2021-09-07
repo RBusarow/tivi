@@ -20,30 +20,30 @@ import app.tivi.data.daos.RecommendedDao
 import app.tivi.data.daos.TiviShowDao
 import app.tivi.data.entities.RecommendedShowEntry
 import app.tivi.data.entities.Success
+import app.tivi.inject.AppScope
 import com.dropbox.android.external.store4.Fetcher
 import com.dropbox.android.external.store4.SourceOfTruth
 import com.dropbox.android.external.store4.Store
 import com.dropbox.android.external.store4.StoreBuilder
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.map
 import org.threeten.bp.Duration
 import javax.inject.Singleton
 
-typealias RecommendedShowsStore = Store<Int, List<RecommendedShowEntry>>
+typealias RecommendedShowsStore = @JvmSuppressWildcards Store<Int, List<RecommendedShowEntry>>
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
-internal object RecommendedShowsModule {
+object RecommendedShowsModule {
     @Provides
     @Singleton
     fun provideRecommendedShowsStore(
         traktRecommendedShows: TraktRecommendedShowsDataSource,
         recommendedDao: RecommendedDao,
         showDao: TiviShowDao,
-        lastRequestStore: RecommendedShowsLastRequestStore
+        lastRequestStore: RecommendedShowsLastRequestStore,
     ): RecommendedShowsStore = StoreBuilder.from(
         fetcher = Fetcher.of { page: Int ->
             traktRecommendedShows(page, 20)

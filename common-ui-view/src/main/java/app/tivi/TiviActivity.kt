@@ -20,8 +20,14 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import tangle.inject.TangleGraph
 
 abstract class TiviActivity : ComponentActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        TangleGraph.inject(this)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)

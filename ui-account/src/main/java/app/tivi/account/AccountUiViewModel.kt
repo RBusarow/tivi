@@ -23,22 +23,20 @@ import app.tivi.domain.observers.ObserveTraktAuthState
 import app.tivi.domain.observers.ObserveUserDetails
 import app.tivi.trakt.TraktAuthManager
 import app.tivi.trakt.TraktManager
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import tangle.viewmodel.VMInject
 
-@HiltViewModel
-internal class AccountUiViewModel @Inject constructor(
+class AccountUiViewModel @VMInject constructor(
     private val traktManager: TraktManager,
     private val traktAuthManager: TraktAuthManager,
     observeTraktAuthState: ObserveTraktAuthState,
     observeUserDetails: ObserveUserDetails,
-    private val clearUserDetails: ClearUserDetails
+    private val clearUserDetails: ClearUserDetails,
 ) : ViewModel(), TraktAuthManager by traktAuthManager {
 
     val state: StateFlow<AccountUiViewState> = combine(

@@ -21,8 +21,11 @@ import androidx.core.provider.FontRequest
 import androidx.emoji.text.EmojiCompat
 import androidx.emoji.text.FontRequestEmojiCompatConfig
 import app.tivi.R
+import app.tivi.inject.AppScope
+import com.squareup.anvil.annotations.ContributesMultibinding
 import javax.inject.Inject
 
+@ContributesMultibinding(AppScope::class)
 class EmojiInitializer @Inject constructor() : AppInitializer {
     override fun init(application: Application) {
         val fontRequest = FontRequest(

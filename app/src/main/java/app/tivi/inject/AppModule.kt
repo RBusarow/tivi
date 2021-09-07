@@ -20,15 +20,11 @@ import android.app.Application
 import android.content.Context
 import app.tivi.BuildConfig
 import app.tivi.extensions.withLocale
-import app.tivi.tmdb.TmdbModule
-import app.tivi.trakt.TraktModule
 import app.tivi.util.AppCoroutineDispatchers
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
@@ -36,13 +32,8 @@ import java.io.File
 import javax.inject.Named
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
-@Module(
-    includes = [
-        TraktModule::class,
-        TmdbModule::class
-    ]
-)
+@ContributesTo(AppScope::class)
+@Module
 object AppModule {
     @ApplicationId
     @Provides
@@ -60,7 +51,7 @@ object AppModule {
     @Singleton
     @Named("cache")
     fun provideCacheDir(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): File = context.cacheDir
 
     @Provides
@@ -79,7 +70,7 @@ object AppModule {
     @Provides
     @MediumDate
     fun provideMediumDateFormatter(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): DateTimeFormatter {
         return DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(context)
     }
@@ -88,7 +79,7 @@ object AppModule {
     @Provides
     @MediumDateTime
     fun provideDateTimeFormatter(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): DateTimeFormatter {
         return DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(context)
     }
@@ -97,7 +88,7 @@ object AppModule {
     @Provides
     @ShortDate
     fun provideShortDateFormatter(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): DateTimeFormatter {
         return DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT).withLocale(context)
     }
@@ -106,7 +97,7 @@ object AppModule {
     @Provides
     @ShortTime
     fun provideShortTimeFormatter(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): DateTimeFormatter {
         return DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(context)
     }

@@ -20,31 +20,31 @@ import app.tivi.data.daos.ShowTmdbImagesDao
 import app.tivi.data.daos.TiviShowDao
 import app.tivi.data.entities.ShowTmdbImage
 import app.tivi.data.entities.Success
+import app.tivi.inject.AppScope
 import app.tivi.inject.Tmdb
 import com.dropbox.android.external.store4.Fetcher
 import com.dropbox.android.external.store4.SourceOfTruth
 import com.dropbox.android.external.store4.Store
 import com.dropbox.android.external.store4.StoreBuilder
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.map
 import org.threeten.bp.Duration
 import javax.inject.Singleton
 
-typealias ShowImagesStore = Store<Long, List<ShowTmdbImage>>
+typealias ShowImagesStore = @JvmSuppressWildcards Store<Long, List<ShowTmdbImage>>
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
-internal abstract class ShowDataSourceBinds {
+abstract class ShowDataSourceBinds {
     @Binds
     @Tmdb
     abstract fun bindTmdbShowImagesDataSource(source: TmdbShowImagesDataSource): ShowImagesDataSource
 }
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
 object ShowImagesStoreModule {
     @Provides
@@ -53,7 +53,7 @@ object ShowImagesStoreModule {
         showTmdbImagesDao: ShowTmdbImagesDao,
         showDao: TiviShowDao,
         lastRequestStore: ShowImagesLastRequestStore,
-        @Tmdb tmdbShowImagesDataSource: ShowImagesDataSource
+        @Tmdb tmdbShowImagesDataSource: ShowImagesDataSource,
     ): ShowImagesStore = StoreBuilder.from(
         fetcher = Fetcher.of { showId: Long ->
             val show = showDao.getShowWithId(showId)

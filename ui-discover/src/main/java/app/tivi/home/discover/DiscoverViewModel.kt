@@ -30,17 +30,15 @@ import app.tivi.domain.observers.ObserveUserDetails
 import app.tivi.extensions.combine
 import app.tivi.util.ObservableLoadingCounter
 import app.tivi.util.collectInto
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import tangle.viewmodel.VMInject
 
-@HiltViewModel
-internal class DiscoverViewModel @Inject constructor(
+class DiscoverViewModel @VMInject constructor(
     private val updatePopularShows: UpdatePopularShows,
     observePopularShows: ObservePopularShows,
     private val updateTrendingShows: UpdateTrendingShows,
@@ -67,8 +65,10 @@ internal class DiscoverViewModel @Inject constructor(
         observeNextShowEpisodeToWatch.flow,
         observeTraktAuthState.flow,
         observeUserDetails.flow,
-    ) { trendingLoad, popularLoad, recommendLoad, trending, popular, recommended,
-        nextShow, authState, user ->
+    ) {
+        trendingLoad, popularLoad, recommendLoad, trending, popular, recommended,
+        nextShow, authState, user,
+        ->
         DiscoverViewState(
             user = user,
             authState = authState,

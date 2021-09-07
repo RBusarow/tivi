@@ -16,7 +16,6 @@
 
 package app.tivi.episodedetails
 
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.tivi.api.UiError
@@ -33,7 +32,6 @@ import app.tivi.domain.observers.ObserveEpisodeWatches
 import app.tivi.ui.SnackbarManager
 import app.tivi.util.Logger
 import app.tivi.util.ObservableLoadingCounter
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -43,11 +41,10 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
-import javax.inject.Inject
+import tangle.inject.TangleParam
+import tangle.viewmodel.VMInject
 
-@HiltViewModel
-internal class EpisodeDetailsViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+class EpisodeDetailsViewModel @VMInject constructor(
     private val updateEpisodeDetails: UpdateEpisodeDetails,
     observeEpisodeDetails: ObserveEpisodeDetails,
     private val observeEpisodeWatches: ObserveEpisodeWatches,
@@ -55,10 +52,9 @@ internal class EpisodeDetailsViewModel @Inject constructor(
     private val removeEpisodeWatches: RemoveEpisodeWatches,
     private val removeEpisodeWatch: RemoveEpisodeWatch,
     private val logger: Logger,
-    private val snackbarManager: SnackbarManager
+    private val snackbarManager: SnackbarManager,
+    @TangleParam("episodeId") private val episodeId: Long,
 ) : ViewModel() {
-
-    private val episodeId: Long = savedStateHandle.get("episodeId")!!
 
     private val loadingState = ObservableLoadingCounter()
 

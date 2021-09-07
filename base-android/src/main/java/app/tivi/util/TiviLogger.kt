@@ -18,12 +18,15 @@ package app.tivi.util
 
 import android.os.Build
 import android.util.Log
+import app.tivi.inject.AppScope
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.squareup.anvil.annotations.ContributesBinding
 import timber.log.Timber
 import java.util.regex.Pattern
 import javax.inject.Inject
 import javax.inject.Provider
 
+@ContributesBinding(AppScope::class)
 class TiviLogger @Inject constructor(
     private val firebaseCrashlytics: Provider<FirebaseCrashlytics>,
 ) : Logger {
@@ -154,7 +157,7 @@ private class TiviDebugTree : Timber.DebugTree() {
 }
 
 private class CrashlyticsTree(
-    private val firebaseCrashlytics: FirebaseCrashlytics
+    private val firebaseCrashlytics: FirebaseCrashlytics,
 ) : Timber.Tree() {
     override fun isLoggable(tag: String?, priority: Int): Boolean {
         return priority >= Log.INFO

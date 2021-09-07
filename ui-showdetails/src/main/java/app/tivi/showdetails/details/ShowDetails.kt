@@ -91,7 +91,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
-import androidx.hilt.navigation.compose.hiltViewModel
 import app.tivi.common.compose.Layout
 import app.tivi.common.compose.LocalTiviTextCreator
 import app.tivi.common.compose.LogCompositions
@@ -135,6 +134,7 @@ import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.google.accompanist.insets.ui.Scaffold
 import com.google.accompanist.insets.ui.TopAppBar
 import org.threeten.bp.OffsetDateTime
+import tangle.viewmodel.compose.tangleViewModel
 
 @Composable
 fun ShowDetails(
@@ -144,7 +144,7 @@ fun ShowDetails(
     openSeasons: (showId: Long, seasonId: Long) -> Unit,
 ) {
     ShowDetails(
-        viewModel = hiltViewModel(),
+        viewModel = tangleViewModel(),
         navigateUp = navigateUp,
         openShowDetails = openShowDetails,
         openEpisodeDetails = openEpisodeDetails,

@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.tivi.domain.interactors.SearchShows
 import app.tivi.util.ObservableLoadingCounter
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -31,11 +30,10 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import tangle.viewmodel.VMInject
 
-@HiltViewModel
-internal class SearchViewModel @Inject constructor(
-    private val searchShows: SearchShows
+class SearchViewModel @VMInject constructor(
+    private val searchShows: SearchShows,
 ) : ViewModel() {
     private val searchQuery = MutableStateFlow("")
     private val loadingState = ObservableLoadingCounter()

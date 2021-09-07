@@ -19,8 +19,10 @@ package app.tivi.settings
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import app.tivi.inject.AppScope
+import app.tivi.inject.ApplicationContext
 import app.tivi.settings.TiviPreferences.Theme
-import dagger.hilt.android.qualifiers.ApplicationContext
+import com.squareup.anvil.annotations.ContributesBinding
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -30,9 +32,10 @@ import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 import javax.inject.Named
 
+@ContributesBinding(AppScope::class)
 class TiviPreferencesImpl @Inject constructor(
     @ApplicationContext private val context: Context,
-    @Named("app") private val sharedPreferences: SharedPreferences
+    @Named("app") private val sharedPreferences: SharedPreferences,
 ) : TiviPreferences {
     private val defaultThemeValue = context.getString(R.string.pref_theme_default_value)
 

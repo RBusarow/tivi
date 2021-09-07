@@ -25,6 +25,12 @@ kapt {
     useBuildCache = true
 }
 
+apply plugin: 'com.squareup.anvil'
+
+anvil {
+  generateDaggerFactories true
+}
+
 android {
     compileSdkVersion buildConfig.compileSdk
 
@@ -71,9 +77,6 @@ dependencies {
 
     implementation libs.androidx.paging.runtime
 
-    implementation libs.hilt.library
-    kapt libs.hilt.compiler
-
     testImplementation libs.junit
     testImplementation libs.robolectric
     testImplementation libs.mockK
@@ -84,10 +87,8 @@ dependencies {
     testImplementation libs.androidx.room.testing
     testImplementation libs.truth
     testImplementation libs.kotlin.coroutines.test
-    testImplementation libs.hilt.testing
 
     kaptTest libs.androidx.room.compiler
-    kaptTest libs.hilt.compiler
 
     // Needed for Tzdb
     testImplementation "org.threeten:threetenbp:${libs.versions.threetenbp.get()}"

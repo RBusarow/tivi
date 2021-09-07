@@ -20,30 +20,30 @@ import app.tivi.data.daos.TiviShowDao
 import app.tivi.data.daos.WatchedShowDao
 import app.tivi.data.entities.Success
 import app.tivi.data.entities.WatchedShowEntry
+import app.tivi.inject.AppScope
 import com.dropbox.android.external.store4.Fetcher
 import com.dropbox.android.external.store4.SourceOfTruth
 import com.dropbox.android.external.store4.Store
 import com.dropbox.android.external.store4.StoreBuilder
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.map
 import org.threeten.bp.Duration
 import javax.inject.Singleton
 
-typealias WatchedShowsStore = Store<Unit, List<WatchedShowEntry>>
+typealias WatchedShowsStore = @JvmSuppressWildcards Store<Unit, List<WatchedShowEntry>>
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
-internal object WatchedShowsModule {
+object WatchedShowsModule {
     @Provides
     @Singleton
     fun provideWatchedShowsStore(
         traktWatchedShows: TraktWatchedShowsDataSource,
         watchedShowsDao: WatchedShowDao,
         showDao: TiviShowDao,
-        lastRequestStore: WatchedShowsLastRequestStore
+        lastRequestStore: WatchedShowsLastRequestStore,
     ): WatchedShowsStore = StoreBuilder.from(
         fetcher = Fetcher.of { _: Unit ->
             traktWatchedShows()

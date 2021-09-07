@@ -23,12 +23,10 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import app.tivi.data.resultentities.TrendingEntryWithShow
 import app.tivi.domain.observers.ObservePagedTrendingShows
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
+import tangle.viewmodel.VMInject
 
-@HiltViewModel
-internal class TrendingShowsViewModel @Inject constructor(
+class TrendingShowsViewModel @VMInject constructor(
     pagingInteractor: ObservePagedTrendingShows,
 ) : ViewModel() {
 

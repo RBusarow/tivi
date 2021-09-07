@@ -20,30 +20,30 @@ import app.tivi.data.daos.RelatedShowsDao
 import app.tivi.data.daos.TiviShowDao
 import app.tivi.data.entities.RelatedShowEntry
 import app.tivi.data.entities.Success
+import app.tivi.inject.AppScope
 import com.dropbox.android.external.store4.Fetcher
 import com.dropbox.android.external.store4.SourceOfTruth
 import com.dropbox.android.external.store4.Store
 import com.dropbox.android.external.store4.StoreBuilder
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.map
 import org.threeten.bp.Duration
 import javax.inject.Singleton
 
-typealias RelatedShowsStore = Store<Long, List<RelatedShowEntry>>
+typealias RelatedShowsStore = @JvmSuppressWildcards Store<Long, List<RelatedShowEntry>>
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
-internal object RelatedShowsModule {
+object RelatedShowsModule {
     @Provides
     @Singleton
     fun provideRelatedShowsStore(
         tmdbRelatedShows: TmdbRelatedShowsDataSource,
         relatedShowsDao: RelatedShowsDao,
         showDao: TiviShowDao,
-        lastRequestStore: RelatedShowsLastRequestStore
+        lastRequestStore: RelatedShowsLastRequestStore,
     ): RelatedShowsStore = StoreBuilder.from(
         fetcher = Fetcher.of { showId: Long ->
             tmdbRelatedShows(showId)

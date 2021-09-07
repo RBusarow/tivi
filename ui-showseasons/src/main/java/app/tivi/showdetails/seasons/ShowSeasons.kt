@@ -61,7 +61,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import app.tivi.common.compose.Layout
 import app.tivi.common.compose.LocalTiviTextCreator
 import app.tivi.common.compose.bodyWidth
@@ -83,6 +82,7 @@ import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
+import tangle.viewmodel.compose.tangleViewModel
 
 @Composable
 fun ShowSeasons(
@@ -91,7 +91,7 @@ fun ShowSeasons(
     initialSeasonId: Long? = null,
 ) {
     ShowSeasons(
-        viewModel = hiltViewModel(),
+        viewModel = tangleViewModel(),
         navigateUp = navigateUp,
         openEpisodeDetails = openEpisodeDetails,
         initialSeasonId = initialSeasonId,

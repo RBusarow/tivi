@@ -17,13 +17,13 @@
 package app.tivi.common.imageloading
 
 import app.tivi.appinitializers.AppInitializer
+import app.tivi.inject.AppScope
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Binds
 import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
 abstract class ImageLoadingModule {
     @Binds

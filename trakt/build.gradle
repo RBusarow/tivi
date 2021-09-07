@@ -17,13 +17,12 @@
 
 plugins {
     id 'kotlin'
-    id 'kotlin-kapt'
     id 'com.android.lint'
+    id 'com.squareup.anvil'
 }
 
-kapt {
-    correctErrorTypes = true
-    useBuildCache = true
+anvil {
+    generateDaggerFactories true
 }
 
 dependencies {
@@ -38,5 +37,4 @@ dependencies {
     implementation libs.retrofit.retrofit
     implementation libs.retrofit.gsonConverter
 
-    kapt libs.dagger.compiler
 }

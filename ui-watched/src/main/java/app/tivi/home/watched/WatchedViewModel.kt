@@ -35,7 +35,6 @@ import app.tivi.trakt.TraktAuthState
 import app.tivi.util.ObservableLoadingCounter
 import app.tivi.util.ShowStateSelector
 import app.tivi.util.collectInto
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,16 +44,15 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import tangle.viewmodel.VMInject
 
-@HiltViewModel
-class WatchedViewModel @Inject constructor(
+class WatchedViewModel @VMInject constructor(
     private val updateWatchedShows: UpdateWatchedShows,
     private val changeShowFollowStatus: ChangeShowFollowStatus,
     private val observePagedWatchedShows: ObservePagedWatchedShows,
     observeTraktAuthState: ObserveTraktAuthState,
     private val getTraktAuthState: GetTraktAuthState,
-    observeUserDetails: ObserveUserDetails
+    observeUserDetails: ObserveUserDetails,
 ) : ViewModel() {
     private val pendingActions = MutableSharedFlow<WatchedAction>()
 

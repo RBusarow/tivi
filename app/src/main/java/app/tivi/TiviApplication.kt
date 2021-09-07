@@ -17,19 +17,31 @@
 package app.tivi
 
 import android.app.Application
-import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import app.tivi.appinitializers.AppInitializers
-import dagger.hilt.android.HiltAndroidApp
+import app.tivi.inject.AppScope
+import com.squareup.anvil.annotations.MergeComponent
+import dagger.BindsInstance
+import dagger.Component
+import tangle.inject.TangleGraph
+import tangle.inject.TangleScope
+import tangle.work.TangleWorkerFactory
 import javax.inject.Inject
+import javax.inject.Singleton
 
-@HiltAndroidApp
+@TangleScope(AppScope::class)
 class TiviApplication : Application(), Configuration.Provider {
     @Inject lateinit var initializers: AppInitializers
-    @Inject lateinit var workerFactory: HiltWorkerFactory
+    @Inject lateinit var workerFactory: TangleWorkerFactory
 
     override fun onCreate() {
         super.onCreate()
+
+        val component = DaggerAppComponent.factory().create(this)
+
+        TangleGraph.add(component)
+        TangleGraph.inject(this)
+
         initializers.init(this)
     }
 
@@ -37,5 +49,18 @@ class TiviApplication : Application(), Configuration.Provider {
         return Configuration.Builder()
             .setWorkerFactory(workerFactory)
             .build()
+    }
+}
+
+@Singleton
+@MergeComponent(AppScope::class)
+interface AppComponent {
+
+    @Component.Factory
+    interface Factory {
+        fun create(
+            @BindsInstance
+            application: Application,
+        ): AppComponent
     }
 }

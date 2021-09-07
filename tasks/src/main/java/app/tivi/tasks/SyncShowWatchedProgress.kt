@@ -17,7 +17,6 @@
 package app.tivi.tasks
 
 import android.content.Context
-import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
@@ -25,8 +24,9 @@ import app.tivi.domain.interactors.UpdateShowSeasonData
 import app.tivi.util.Logger
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import tangle.work.TangleWorker
 
-@HiltWorker
+@TangleWorker
 class SyncShowWatchedProgress @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,

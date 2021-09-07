@@ -20,12 +20,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import androidx.core.net.toUri
+import app.tivi.inject.AppScope
+import app.tivi.inject.ApplicationContext
 import app.tivi.inject.ApplicationId
+import com.squareup.anvil.annotations.ContributesTo
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import net.openid.appauth.AuthorizationRequest
@@ -36,7 +36,7 @@ import net.openid.appauth.ResponseTypeValues
 import javax.inject.Named
 import javax.inject.Singleton
 
-@InstallIn(SingletonComponent::class)
+@ContributesTo(AppScope::class)
 @Module
 object TraktAuthModule {
     @Singleton
@@ -49,7 +49,7 @@ object TraktAuthModule {
     }
 
     @Provides
-    fun provideAuthState(traktManager: TraktManager) = runBlocking {
+    fun provideAuthState(traktManager: TraktManager): TraktAuthState = runBlocking {
         traktManager.state.first()
     }
 
@@ -57,7 +57,7 @@ object TraktAuthModule {
     fun provideAuthRequest(
         serviceConfig: AuthorizationServiceConfiguration,
         @Named("trakt-client-id") clientId: String,
-        @Named("trakt-auth-redirect-uri") redirectUri: String
+        @Named("trakt-auth-redirect-uri") redirectUri: String,
     ): AuthorizationRequest {
         return AuthorizationRequest.Builder(
             serviceConfig,
@@ -74,13 +74,13 @@ object TraktAuthModule {
     @Named("trakt-auth-redirect-uri")
     @Provides
     fun provideAuthRedirectUri(
-        @ApplicationId applicationId: String
+        @ApplicationId applicationId: String,
     ): String = "$applicationId://${TraktConstants.URI_AUTH_CALLBACK_PATH}"
 
     @Singleton
     @Provides
     fun provideClientAuth(
-        @Named("trakt-client-secret") clientSecret: String
+        @Named("trakt-client-secret") clientSecret: String,
     ): ClientAuthentication {
         return ClientSecretBasic(clientSecret)
     }
@@ -89,7 +89,7 @@ object TraktAuthModule {
     @Provides
     @Named("auth")
     fun provideAuthSharedPrefs(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): SharedPreferences {
         return context.getSharedPreferences("trakt_auth", Context.MODE_PRIVATE)
     }
